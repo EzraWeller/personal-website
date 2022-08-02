@@ -1,0 +1,6 @@
+# Redirects from what the browser requests to what we serve
+/pages/index.html             /
+/pages/cv.html                /cv
+/pages/music.html             /music
+/pages/writing.html           /writing
+/pages/product.html           /product

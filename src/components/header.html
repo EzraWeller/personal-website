@@ -1,0 +1,52 @@
+<div>
+  <div class="row">
+    <a href="index.html" id="header-title">
+      <h1>
+        <span class="header-span" id="one">__e</span>
+        <span class="header-span" id="two">zra</span>
+        <span class="header-span" id="three">_weller</span>
+      </h1>
+    </a>
+  </div>
+  <div class="row">
+    <a href="music.html">
+      <h3>music</h3>
+    </a>
+    <a href="writing.html">
+      <h3>writing</h3>
+    </a>
+    <a href="product.html">
+      <h3>product</h3>
+    </a>
+    <a href="cv.html">
+      <h3>cv</h3>
+    </a>
+  </div>
+</div>
+
+<script>
+  const toggleText1 = ["__e", "m0"]
+  const toggleText3 = ["_weller", "t______"]
+  const spans = document.getElementsByClassName("header-span")
+  let i, span1, span3
+  for (i = 0; i < spans.length; i++) {
+    const s = spans.item(i)
+    if (s.id == "one") span1 = s
+    if (s.id == "three") span3 = s
+  }
+
+  function toggleText() {
+    if (span1.innerText == toggleText1[0]) {
+      span1.innerText = toggleText1[1]
+      span3.innerText = toggleText3[1]
+    } else {
+      span1.innerText = toggleText1[0]
+      span3.innerText = toggleText3[0]
+    }
+  }
+
+  setInterval(() => {
+    toggleText()
+    setTimeout(() => toggleText(), 750)
+  }, 30000)
+</script>

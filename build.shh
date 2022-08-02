@@ -1,0 +1,71 @@
+#!/bin/sh
+# Build components and html pages from src to build folder
+# website should be represented fully by the build folder
+
+regex="(<.-- &build).+( -->)"
+
+# $1: filename
+# $2: folder
+include_html () {
+  if includes=$(grep -Ei "$regex" src$2/$1); then
+    count=1
+    for word in $includes; do
+      if [ $(($count % 4)) == 3 ]; then
+        if ! test -f build/$word.html; then
+          # recurse to deal with the included file first, then insert the file
+          include_html $word.html
+        fi
+        # insert the file from build
+        if ! test -f build$2/$1; then
+          # add file to build if not already added
+          cp src$2/$1 build$2/$1
+        fi
+        replace="<!-- &build $word -->"
+        html=$(cat build/$word.html)
+        sed -Ei "" "s|$replace|${html//$'\n'/\\n}|" build/$2/$1
+      fi
+      count=$(($count+1))
+    done
+  fi
+}
+
+echo "Building..."
+
+rm -rf build
+mkdir build
+cd build && mkdir components
+cd ..
+# copy files without includes to build folder
+cp -R src/assets build/assets
+cp src/_redirects build/_redirects
+for path in src/*.css; do
+  filename=$(echo $path | cut -c5-)
+  cp src/$filename build/$filename
+done
+for path in src/components/*.html; do
+  filename=$(echo $path | cut -c16-)
+  if ! grep -Eiq "$regex" src/components/$filename; then
+    cp src/components/$filename build/components/$filename
+  fi
+done
+for path in src/*.html; do
+  filename=$(echo $path | cut -c5-)
+  if ! grep -Eiq "$regex" src/$filename; then
+    cp src/$filename build/$filename
+  fi
+done
+
+# do includes
+for path in src/components/*.html; do
+  filename=$(echo $path | cut -c16-)
+  include_html $filename /components
+done
+for path in src/*.html; do
+  filename=$(echo $path | cut -c5-)
+  include_html $filename
+done
+
+# get rid of build/components, as it's no longer needed
+rm -rf build/components
+
+echo "Done ✨"
