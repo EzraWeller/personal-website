@@ -1,0 +1,18 @@
+/* for itch, we want no margin/padding anywhere */
+/*
+body {
+  margin: 0;
+  padding: 0;
+}
+  */
+
+#p5_canvas {
+  margin: 0;
+  padding: 0;
+}
+
+#p5_canvas > canvas {
+  /* margin: 3vw; */
+  padding: 0;
+  display: block;
+}

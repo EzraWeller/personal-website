@@ -2,10 +2,11 @@
 # Build components and html pages from src to build folder
 # website should be represented fully by the build folder
 
+# method and regex for doing includes
 regex="(<.-- &build).+( -->)"
 
-# $1: filename
-# $2: folder
+## $1: filename
+## $2: folder
 include_html () {
   if includes=$(grep -Ei "$regex" src$2/$1); then
     count=1
@@ -31,23 +32,40 @@ include_html () {
 
 echo "Building..."
 
+# clean out and set up build folder
 rm -rf build
 mkdir build
 cd build && mkdir components
 cd ..
+
 # copy files without includes to build folder
+## assets
 cp -R src/assets build/assets
+
+## redirects
 cp src/_redirects build/_redirects
+
+## libraries
+cp -R src/libraries build/libraries
+
+## toys (js and css for web toys)
+cp -R src/toys build/toys
+
+## src css files
 for path in src/*.css; do
   filename=$(echo $path | cut -c5-)
   cp src/$filename build/$filename
 done
+
+## html components (will be removed later)
 for path in src/components/*.html; do
   filename=$(echo $path | cut -c16-)
   if ! grep -Eiq "$regex" src/components/$filename; then
     cp src/components/$filename build/components/$filename
   fi
 done
+
+## src html pages
 for path in src/*.html; do
   filename=$(echo $path | cut -c5-)
   if ! grep -Eiq "$regex" src/$filename; then
@@ -55,7 +73,7 @@ for path in src/*.html; do
   fi
 done
 
-# do includes
+# do all the includes
 for path in src/components/*.html; do
   filename=$(echo $path | cut -c16-)
   include_html $filename /components
@@ -65,7 +83,7 @@ for path in src/*.html; do
   include_html $filename
 done
 
-# get rid of build/components, as it's no longer needed
+# get rid of build/components, as it's no longer needed after doing includes
 rm -rf build/components
 
 echo "Done ✨"

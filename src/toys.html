@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<!-- &build components/html-header -->
+
+<!-- p5_1 header stuff -->
+<header>
+  <link rel="stylesheet" type="text/css" href="./toys/p5_1/p5_1_style.css">
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+</header>
+
+<body>
+  <!-- &build components/header -->
+  <section class="post-feed">
+
+    <div class="post">
+      <h3 class="title">collecting rain</h3>
+      <div class="content">
+        <!-- p5 canvas will be made a child of this div so we have full css control of its container -->
+        <div id="p5_canvas"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- this must be deferred in order to reparent the canvas to p5_canvas -->
+  <script src="./toys/p5_1/p5_1.js" defer></script>
+
+  <!-- &build components/footer -->
+</body>
+
+</html>
