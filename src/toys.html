@@ -5,27 +5,61 @@
 
 <!-- p5_1 header stuff -->
 <header>
-  <link rel="stylesheet" type="text/css" href="./toys/p5_1/p5_1_style.css">
-  <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script>
+  <title>M0zrat's Webtoys</title>
+    <link rel="stylesheet" type="text/css" href="toys/toy_style.css">
+
+    <script src="vendor/p5.min.js"></script>
+
+    <script src="lib/state.js"></script>
+    <script src="lib/vectors.js"></script>
+    <script src="lib/shaders.js"></script>
+    <script src="lib/fireworks.js"></script>
+
+    <script src="toys/collecting_rain_instance.js"></script>
+    <script src="toys/spilling_paint_instance.js"></script>
 </header>
 
 <body>
   <!-- &build components/header -->
-  <section class="post-feed">
 
-    <div class="post">
-      <h3 class="title">collecting rain</h3>
-      <div class="content">
-        <!-- p5 canvas will be made a child of this div so we have full css control of its container -->
-        <div id="p5_canvas"></div>
-      </div>
-    </div>
+  <div class="content row" id="toy_buttons">
+    <!-- stuff here to swap between toys -->
+    <div id="spilling_paint_button" class="toy_button">spilling paint</div>
+    <div id="collecting_rain_button" class="toy_button">collecting rain</div>
+  </div>
 
-  </section>
+  <!-- p5 canvas will be made a child of this div so we have full css control of its container -->
+  <div id="toy_canvas">
+  </div>
 
+  <script src="lib/toy_switcher.js"></script>
   <!-- this must be deferred in order to reparent the canvas to p5_canvas -->
-  <script src="./toys/p5_1/p5_1.js" defer></script>
+  <!-- script id="toy_script" src="toys/collecting_rain.js" defer></script -->
+
+  <script>
+    const all_buttons = document.getElementsByClassName("toy_button");
+
+    const spilling_paint_button = document.getElementById("spilling_paint_button");
+    const handle_spilling_paint = (e) =>
+    {
+      switchToy(TT_SPILLING_PAINT, spilling_paint_button, all_buttons);
+      console.log("handled spilling paint");
+    };
+    const collecting_rain_button = document.getElementById("collecting_rain_button");
+    const handle_collecting_rain = (e) =>
+    {
+      switchToy(TT_COLLECTING_RAIN, collecting_rain_button, all_buttons);
+      console.log("handled collecting rain");
+    };
+
+    spilling_paint_button.onclick = handle_spilling_paint;
+    spilling_paint_button.ontouchstart = handle_spilling_paint;
+
+    collecting_rain_button.onclick = handle_collecting_rain;
+    collecting_rain_button.ontouchstart = handle_collecting_rain;
+
+    handle_spilling_paint();
+  </script>
 
   <!-- &build components/footer -->
 </body>

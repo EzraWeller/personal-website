@@ -46,7 +46,10 @@ cp -R src/assets build/assets
 cp src/_redirects build/_redirects
 
 ## libraries
-cp -R src/libraries build/libraries
+cp -R src/lib build/lib
+
+## vendor
+cp -R src/vendor build/vendor
 
 ## toys (js and css for web toys)
 cp -R src/toys build/toys
