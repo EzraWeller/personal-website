@@ -22,15 +22,16 @@
 <body>
   <!-- &build components/header -->
 
-  <div class="content row" id="toy_buttons">
-    <!-- stuff here to swap between toys -->
-    <div id="spilling_paint_button" class="toy_button">spilling paint</div>
-    <div id="collecting_rain_button" class="toy_button">collecting rain</div>
+  <div class="content row">
+    <div class="content row" id="toy_buttons">
+      <!-- stuff here to swap between toys -->
+      <div id="spilling_paint_button" class="toy_button">spilling paint</div>
+      <div id="collecting_rain_button" class="toy_button">collecting rain</div>
+    </div>
   </div>
 
   <!-- p5 canvas will be made a child of this div so we have full css control of its container -->
-  <div id="toy_canvas">
-  </div>
+  <div class="toy_container" id="toy_canvas"></div>
 
   <script src="lib/toy_switcher.js"></script>
   <!-- this must be deferred in order to reparent the canvas to p5_canvas -->

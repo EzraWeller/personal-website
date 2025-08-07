@@ -19,22 +19,26 @@ body {
 }
   */
 
-#toy_canvas {
-  margin: 0 -3em 0 -3em; /* undo the default margins on body */
-  width: 100vw;
+@media only screen and (max-width: 600px)
+{
+  .toy_container {
+    margin: 0 -3em 0 -3em; /* undo the default margins on body */
+  }
+
+  #toy_canvas > canvas {
+    margin: auto;
+  }
 }
 
 #toy_canvas > canvas {
   padding: 0;
   display: block;
-  margin: auto;
 }
 
 #toy_buttons {
   border: 2px solid black;
   padding: 8px;
   width: fit-content;
-  
 }
 
 .toy_button {

@@ -55,7 +55,7 @@ const SPILLING_PAINT = (sk) =>
   const CIRCLE_BIRTH_SPEED = 5.0;
   const CIRCLE_GROWTH_SPEED = 0.15;
   const CIRCLE_SHRINK_SPEED = 3.5;
-  const CIRCLE_DRAG_SPEED = 4.0;
+  const CIRCLE_DRAG_SPEED = 6.0;
   const CIRCLE_TRANS_SPEED = 4.0;
 
   const SCREEN_FULL_MEAS_STEPS = 5.0;
@@ -81,6 +81,7 @@ const SPILLING_PAINT = (sk) =>
       state: [],
       dragStartPos: [],
       draggingToPos: [],
+      dragTouchIdx: [],
       shouldSetupNew: false
     },
     measurement: {
@@ -154,6 +155,8 @@ const SPILLING_PAINT = (sk) =>
         STATE.circles.state.push(CIRCLE_STATE_BIRTH);
 
         STATE.circles.draggingToPos.push(circleUV(i));
+
+        STATE.circles.dragTouchIdx.push(-1);
       }
     }
 
@@ -205,6 +208,8 @@ const SPILLING_PAINT = (sk) =>
 
       STATE.circles.draggingToPos.push(circleUV(STATE.circles.count));
 
+      STATE.circles.dragTouchIdx.push(-1);
+
       STATE.circles.count += 1;
     }
 
@@ -229,7 +234,7 @@ const SPILLING_PAINT = (sk) =>
       return distSq < r * r;
     }
 
-    function tryInteractCircle(u, v)
+    function tryInteractCircle(u, v, touchIdx = -1)
     {
       // no interaction after growth has started
       if (STATE.circles.anyGrowingOrShrinking) return;
@@ -243,6 +248,7 @@ const SPILLING_PAINT = (sk) =>
           STATE.circles.state[i] = CIRCLE_STATE_DRAG;
           // STATE.circles.rendering[i * CIRCLE_RENDERING_DATA_STRIDE + CIRCLE_TRANS_IDX] = 0.0;
           STATE.circles.dragStartPos[i] = [u, v];
+          STATE.circles.dragTouchIdx[i] = touchIdx;
           return;
         }
       }
@@ -250,7 +256,7 @@ const SPILLING_PAINT = (sk) =>
 
     function tryEndInteraction(u, v)
     {
-      console.log("tried end at ", u, v);
+      // console.log("tried end at ", u, v);
       // try to click on a circle
       for (let i = 0; i < STATE.circles.count; i++)
       {
@@ -258,6 +264,7 @@ const SPILLING_PAINT = (sk) =>
         {
           STATE.circles.state[i] = CIRCLE_STATE_READY;
           // STATE.circles.rendering[i * CIRCLE_RENDERING_DATA_STRIDE + CIRCLE_TRANS_IDX] = 0.0;
+          STATE.circles.dragTouchIdx[i] = -1;
 
           // a "click" only happened if start and end interaction were in close to same position
           if (
@@ -414,10 +421,19 @@ const SPILLING_PAINT = (sk) =>
       // TODO make this work for touch, too
       if (updateDragTo)
       {
-        STATE.circles.draggingToPos[idx] = [ 
-          clamp(sk.mouseX / sk.width, 0.0, 1.0), 
-          clamp(sk.mouseY / sk.height, 0.0, CIRCLES_SEC_FRACT)
-        ];
+        const touchIdx = STATE.circles.dragTouchIdx[idx];
+        if (touchIdx === -1)
+        {
+          STATE.circles.draggingToPos[idx] = [ 
+            clamp(sk.mouseX / sk.width, 0.0, 1.0), 
+            clamp(sk.mouseY / sk.height, 0.0, CIRCLES_SEC_FRACT)
+          ];
+        } else if (sk.touches.length > 0) {
+          STATE.circles.draggingToPos[idx] = [ 
+            clamp(sk.touches[touchIdx].x / sk.width, 0.0, 1.0), 
+            clamp(sk.touches[touchIdx].y / sk.height, 0.0, CIRCLES_SEC_FRACT)
+          ];
+        }
       }
 
       // if circle has never been dragged, we can skip
@@ -1261,10 +1277,10 @@ const SPILLING_PAINT = (sk) =>
     // on mouse/touch up, 
     function handleMouseDown(e)
     {
-      e.preventDefault();
       if (e.target.classList.contains("toy_button")) return;
       if (e.target === sk.canvas)
       {
+        e.preventDefault();
         // console.log("click ", e.offsetX, " ", e.offsetY);
         if (STATE.paused === false) 
           tryInteractCircle(e.offsetX / sk.width, e.offsetY / sk.height);
@@ -1275,28 +1291,32 @@ const SPILLING_PAINT = (sk) =>
 
     function handleMouseUp(e)
     {
+      // if (STATE.paused === true) return;
+
       e.preventDefault();
-      if (STATE.paused === true) return;
 
       tryEndInteraction(e.offsetX / sk.width, e.offsetY / sk.height);
     }
 
     function handleTouchStart(e)
     {
-      e.preventDefault();
       if (e.target.classList.contains("toy_button")) return;
       if (e.target === sk.canvas)
       {
+        e.preventDefault();
+        // if (e.touches.length > 1) return;
+        
         // console.log("touch ", sk.touches[0].x, " ", sk.touches[0].y);
         if (STATE.paused === false)
         {
-          // tryInteractCircle(sk.touches[0].x / sk.width, sk.touches[0].y / sk.height);
-          e.changedTouches.forEach(touch => {
+          e.touches.forEach((touch, idx) => {
+            // console.log("touch start", touch, sk.canvas);
             tryInteractCircle(
-              (touch.clientX - sk.canvas.offsetLeft) / sk.width, 
-              (touch.clientY - sk.canvas.offsetTop) / sk.height
+              (touch.pageX - sk.canvas.offsetLeft) / sk.width, 
+              (touch.pageY - sk.canvas.offsetTop) / sk.height,
+              idx
             );
-          })
+          });
         }
         unpause();
       }
@@ -1306,16 +1326,18 @@ const SPILLING_PAINT = (sk) =>
     function handleTouchEnd(e)
     {
       // console.log("touch ended", e, e.changedTouches[0], sk.canvas);
-      e.preventDefault();
       if (e.target !== sk.canvas) return;
-      if (STATE.paused === true) return;
+      // if (STATE.paused === true) return;
 
+      // e.preventDefault();
+      
       e.changedTouches.forEach(touch => {
         tryEndInteraction(
-          (touch.clientX - sk.canvas.offsetLeft) / sk.width, 
-          (touch.clientY - sk.canvas.offsetTop) / sk.height
+          (touch.pageX - sk.canvas.offsetLeft) / sk.width, 
+          (touch.pageY - sk.canvas.offsetTop) / sk.height
         );
-      })
+      });
+      
     }
   }
 
