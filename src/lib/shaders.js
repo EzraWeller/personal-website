@@ -18,6 +18,8 @@ vec2 rotate_vec2_around_zero(vec2 v, float angle)
 
 vec2 rotate_vec2_around_center(vec2 v, float angle)
 {
+  return rotate_vec2_around_zero(v - 0.5, angle) + 0.5;
+  /*
   v -= 0.5;
   float cosA = cos(angle);
   float sinA = sin(angle);
@@ -25,6 +27,7 @@ vec2 rotate_vec2_around_center(vec2 v, float angle)
     v.x * cosA - v.y * sinA,
     v.x * sinA + v.y * cosA
   ) + 0.5;
+  */
 }
 
 float vec2_distance_sq(vec2 v1, vec2 v2)
@@ -47,6 +50,50 @@ float sdf_square(vec2 o, vec2 p, float s)
 float sdf_line(vec2 o, vec2 p, float w)
 {
   return abs(p.x - o.x) - w;
+}
+
+float sdf_line_segment(vec2 l1, vec2 l2, vec2 p, float w)
+{
+  vec2 v = l2 - l1;
+  vec2 closest_p = l1 + v * clamp(dot(p - l1, v) / dot(v, v), 0.0, 1.0);
+  return distance(p, closest_p) - w;
+}
+
+/*
+  what is the approach here?
+  check distance to each of the vertices
+  two closest define the closest edge
+  do the sdf to that line segment, which involves rotating the point in order to pretend that line is in a standard transform
+*/
+float sdf_triangle(vec2 o, vec2 p, float s)
+{
+  // get triangle height for equilateral triangle
+  float h = s * 0.8660254; // sqrt(3)/2
+
+  // transform point to origin space
+  vec2 tp = p - o;
+
+  // fold space to only consider positive x, since distances will stay the same
+  tp.x = abs(tp.x);
+
+  // distance to side
+  float d1 = sdf_line_segment(vec2(s * 0.5, h * -0.5), vec2(0.0, h * 0.5), tp, 0.0);
+
+  // distance to base side
+  float d2 = sdf_line_segment(vec2(s * 0.5, h * -0.5), vec2(0.0, h * -0.5), tp, 0.0);
+
+  // if above the base and below the side, sign should be negative
+  float sign = (float(
+    tp.y > h * -0.5 // above base
+    && 
+    tp.y <= (
+      tp.x             // x value
+      * -h / (s * 0.5) // slope
+      + h * 0.5        // intercept
+    ) // below side
+  ) * 2.0 - 1.0) * -1.0; // convert to proper sign
+
+  return min(d1 * sign, d2 * sign);
 }
 
 float sdf_zigzag(vec2 o, vec2 p, float w)

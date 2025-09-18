@@ -1,6 +1,7 @@
 // toy types
 const TT_COLLECTING_RAIN = 0;
 const TT_SPILLING_PAINT = 1;
+const TT_FOOD_CHAIN = 2;
 
 const SELECTED_CLASS = "selected";
 
@@ -40,8 +41,13 @@ function switchToy(newToy, button, allButtons)
   case TT_SPILLING_PAINT:
     TOY = SPILLING_PAINT;
     break;
+
+  case TT_FOOD_CHAIN:
+    TOY = FOOD_CHAIN;
+    break;
   }
 
   TOY_P5 = new p5(TOY, CANVAS_PARENT);
+  
   window.scrollTo(0, currentScroll);
 }

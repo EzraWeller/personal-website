@@ -14,9 +14,11 @@
     <script src="lib/vectors.js"></script>
     <script src="lib/shaders.js"></script>
     <script src="lib/fireworks.js"></script>
+    <script src="lib/util.js"></script>
 
     <script src="toys/collecting_rain_instance.js"></script>
     <script src="toys/spilling_paint_instance.js"></script>
+    <script src="toys/food_chain_instance.js"></script>
 </header>
 
 <body>
@@ -25,6 +27,7 @@
   <div class="content row">
     <div class="content row" id="toy_buttons">
       <!-- stuff here to swap between toys -->
+       <div id="food_chain_button" class="toy_button">food chain</div>
       <div id="spilling_paint_button" class="toy_button">spilling paint</div>
       <div id="collecting_rain_button" class="toy_button">collecting rain</div>
     </div>
@@ -43,14 +46,23 @@
     const spilling_paint_button = document.getElementById("spilling_paint_button");
     const handle_spilling_paint = (e) =>
     {
+      // e.preventDefault();
       switchToy(TT_SPILLING_PAINT, spilling_paint_button, all_buttons);
       console.log("handled spilling paint");
     };
     const collecting_rain_button = document.getElementById("collecting_rain_button");
     const handle_collecting_rain = (e) =>
     {
+      // e.preventDefault();
       switchToy(TT_COLLECTING_RAIN, collecting_rain_button, all_buttons);
       console.log("handled collecting rain");
+    };
+    const food_chain_button = document.getElementById("food_chain_button");
+    const handle_food_chain = (e) =>
+    {
+      // e.preventDefault();
+      switchToy(TT_FOOD_CHAIN, food_chain_button, all_buttons);
+      console.log("handled food chain");
     };
 
     spilling_paint_button.onclick = handle_spilling_paint;
@@ -59,7 +71,10 @@
     collecting_rain_button.onclick = handle_collecting_rain;
     collecting_rain_button.ontouchstart = handle_collecting_rain;
 
-    handle_spilling_paint();
+    food_chain_button.onclick = handle_food_chain;
+    food_chain_button.ontouchstart = handle_food_chain;
+
+    handle_food_chain();
   </script>
 
   <!-- &build components/footer -->
