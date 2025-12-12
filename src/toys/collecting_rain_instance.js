@@ -1,4 +1,4 @@
-const COLLECTING_RAIN = (sk) => 
+const COLLECTING_RAIN = (sk) =>
 {
   //// constants and "types" ////
   const EXPECTED_WIDTH = 200.;
@@ -45,9 +45,9 @@ const COLLECTING_RAIN = (sk) =>
 
   const BUCKET_UNLOCK_ALPHA = 0.75;
   const BUCKET_LOCK_ALPHA = 0.1;
-  const BUCKET_UNLOCK_SCALE = MIN_BUCKET_SCALE * (1 - BUCKET_UNLOCK_ALPHA) + 
+  const BUCKET_UNLOCK_SCALE = MIN_BUCKET_SCALE * (1 - BUCKET_UNLOCK_ALPHA) +
       MAX_BUCKET_SCALE * BUCKET_UNLOCK_ALPHA;
-  const BUCKET_LOCK_SCALE = MIN_BUCKET_SCALE * (1 - BUCKET_LOCK_ALPHA) + 
+  const BUCKET_LOCK_SCALE = MIN_BUCKET_SCALE * (1 - BUCKET_LOCK_ALPHA) +
     MAX_BUCKET_SCALE * BUCKET_LOCK_ALPHA;
 
   // timer constants
@@ -232,7 +232,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // STATE.setup.baseVertsRaindrop.push(raindrop_anchor1);
     appendBezierVertices(
-      STATE.setup.baseVertsRaindrop, 
+      STATE.setup.baseVertsRaindrop,
       raindrop_anchor1,
       raindrop_control1_1,
       raindrop_control1_2,
@@ -240,7 +240,7 @@ const COLLECTING_RAIN = (sk) =>
       7
     );
     appendBezierVertices(
-      STATE.setup.baseVertsRaindrop, 
+      STATE.setup.baseVertsRaindrop,
       raindrop_anchor2,
       raindrop_control2_1,
       raindrop_control2_2,
@@ -248,7 +248,7 @@ const COLLECTING_RAIN = (sk) =>
       12
     );
     appendBezierVertices(
-      STATE.setup.baseVertsRaindrop, 
+      STATE.setup.baseVertsRaindrop,
       raindrop_anchor3,
       raindrop_control3_1,
       raindrop_control3_2,
@@ -327,7 +327,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // STATE.setup.baseVertsHeart.push(heart_anchor1);
     appendBezierVertices(
-      STATE.setup.baseVertsHeart, 
+      STATE.setup.baseVertsHeart,
       heart_anchor1,
       heart_control1_1,
       heart_control1_2,
@@ -335,7 +335,7 @@ const COLLECTING_RAIN = (sk) =>
       6
     );
     appendBezierVertices(
-      STATE.setup.baseVertsHeart, 
+      STATE.setup.baseVertsHeart,
       heart_anchor2,
       heart_control2_1,
       heart_control2_2,
@@ -343,7 +343,7 @@ const COLLECTING_RAIN = (sk) =>
       4
     );
     appendBezierVertices(
-      STATE.setup.baseVertsHeart, 
+      STATE.setup.baseVertsHeart,
       heart_anchor3,
       heart_control3_1,
       heart_control3_2,
@@ -351,7 +351,7 @@ const COLLECTING_RAIN = (sk) =>
       4
     );
     appendBezierVertices(
-      STATE.setup.baseVertsHeart, 
+      STATE.setup.baseVertsHeart,
       heart_anchor4,
       heart_control4_1,
       heart_control4_2,
@@ -402,7 +402,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // rain bucket
     STATE.shapes.bucketRain.position = sk.createVector(
-      BUCKET_X, 
+      BUCKET_X,
       1 * (EXPECTED_HEIGHT - BOTTOM_STRIP_HEIGHT) / (BUCKET_COUNT + 1)
     );
     STATE.shapes.bucketRain.velocity = sk.createVector(0, 0);
@@ -422,7 +422,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // diamond bucket
     STATE.shapes.bucketDiamond.position = sk.createVector(
-      BUCKET_X, 
+      BUCKET_X,
       2 * (EXPECTED_HEIGHT - BOTTOM_STRIP_HEIGHT) / (BUCKET_COUNT + 1)
     );
     STATE.shapes.bucketDiamond.velocity = sk.createVector(0, 0);
@@ -441,7 +441,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // star bucket
     STATE.shapes.bucketStar.position = sk.createVector(
-      BUCKET_X, 
+      BUCKET_X,
       3 * (EXPECTED_HEIGHT - BOTTOM_STRIP_HEIGHT) / (BUCKET_COUNT + 1)
     );
     STATE.shapes.bucketStar.velocity = sk.createVector(0, 0);
@@ -460,7 +460,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // heart bucket
     STATE.shapes.bucketHeart.position = sk.createVector(
-      BUCKET_X, 
+      BUCKET_X,
       4 * (EXPECTED_HEIGHT - BOTTOM_STRIP_HEIGHT) / (BUCKET_COUNT + 1)
     );
     STATE.shapes.bucketHeart.velocity = sk.createVector(0, 0);
@@ -496,13 +496,13 @@ const COLLECTING_RAIN = (sk) =>
     const zeroVel = sk.createVector(0, 0);
 
     STATE.shapes.goals = [];
-    
+
     for (let i = 0; i < GOAL_TYPES.length; i++)
     {
       STATE.shapes.goals.push(
         {
           position: sk.createVector(
-            i * bufferedWidth / GOAL_TYPES.length + posXoffset, 
+            i * bufferedWidth / GOAL_TYPES.length + posXoffset,
             posY
           ),
           velocity: zeroVel,
@@ -539,8 +539,8 @@ const COLLECTING_RAIN = (sk) =>
   function pointInAABB(
     pointX,
     pointY,
-    aabbDims = AABB_DIMS_RAINDROP, 
-    position = sk.createVector(0, 0), 
+    aabbDims = AABB_DIMS_RAINDROP,
+    position = sk.createVector(0, 0),
     scale = 1.
   )
   {
@@ -557,7 +557,7 @@ const COLLECTING_RAIN = (sk) =>
 
   //// game methods ////
   function addFallingShape(
-    shapeType = RAINDROP, 
+    shapeType = RAINDROP,
     position = sk.createVector(0, 0),
     velocity = sk.createVector(0, 0),
     scale = 1.0,
@@ -579,7 +579,7 @@ const COLLECTING_RAIN = (sk) =>
       // console.log("adding a diamond");
       shapeArrays = STATE.shapes.diamonds;
       break;
-    
+
     case STAR:
       // console.log("adding a star");
       shapeArrays = STATE.shapes.stars;
@@ -599,8 +599,8 @@ const COLLECTING_RAIN = (sk) =>
         position.y
       )
     );
-    shapeArrays.scales.push(scale);   
-    shapeArrays.morphTos.scales.push(scale);  
+    shapeArrays.scales.push(scale);
+    shapeArrays.morphTos.scales.push(scale);
 
     shapeArrays.rotations.push(rotation);
     shapeArrays.morphTos.rotations.push(rotation);
@@ -684,14 +684,14 @@ const COLLECTING_RAIN = (sk) =>
     // maybe we just cycle through a list of spawn locations
     // time to spawn a shape?
     if (
-      STATE.game.lastShapeSpawnTime + STATE.game.shapeSpawnTime 
+      STATE.game.lastShapeSpawnTime + STATE.game.shapeSpawnTime
       < STATE.timeElapsed
     ) {
       // console.log("Spawning shape at time: ", STATE.timeElapsed, " ", STATE.game.lastShapeSpawnTime, " ", STATE.game.shapeSpawnTime);
       STATE.game.lastShapeSpawnTime = STATE.timeElapsed;
 
       // get spawn location
-      STATE.game.lastShapeSpawnPointIdx = 
+      STATE.game.lastShapeSpawnPointIdx =
         (STATE.game.lastShapeSpawnPointIdx + 1) % STATE.game.shapeSpawnPointCount;
 
       const spawnLocation = sk.createVector(
@@ -704,17 +704,17 @@ const COLLECTING_RAIN = (sk) =>
       if (STATE.shapes.bucketDiamond.active) possibleShapes.push(DIAMOND);
       if (STATE.shapes.bucketStar.active) possibleShapes.push(STAR);
       if (STATE.shapes.bucketHeart.active) possibleShapes.push(HEART);
-      
-      STATE.game.lastShapeTypeIdx = (STATE.game.lastShapeTypeIdx + 1) 
+
+      STATE.game.lastShapeTypeIdx = (STATE.game.lastShapeTypeIdx + 1)
         % possibleShapes.length;
 
       // console.log("spawning shape ", possibleShapes[STATE.game.lastShapeTypeIdx]);
 
       addFallingShape(
-        possibleShapes[STATE.game.lastShapeTypeIdx], 
-        spawnLocation, 
+        possibleShapes[STATE.game.lastShapeTypeIdx],
+        spawnLocation,
         sk.createVector(
-          STATE.game.shapeBaseVelocity * 0.15, 
+          STATE.game.shapeBaseVelocity * 0.15,
           STATE.game.shapeBaseVelocity
         ),
         FALLING_SHAPE_SCALE, // scale
@@ -732,7 +732,7 @@ const COLLECTING_RAIN = (sk) =>
   }
 
   function updateFallingShapeDrag(
-    i = 0, 
+    i = 0,
     dims = AABB_DIMS_RAINDROP,
     shapes = STATE.shapes.raindrops,
     realPos = sk.createVector(0.0, 0.0),
@@ -747,22 +747,22 @@ const COLLECTING_RAIN = (sk) =>
       // shapes.beingDragged[i] = false;
       shapeDragOnOff(false, shapes, i);
     }
-    else 
+    else
     {
       // is shape moused over?
       const mousedOver = pointInAABB(
-        sk.mouseX - sk.width * 0.5, 
-        sk.mouseY - sk.height * 0.5, 
-        dims, 
-        realPos, 
+        sk.mouseX - sk.width * 0.5,
+        sk.mouseY - sk.height * 0.5,
+        dims,
+        realPos,
         realScale
       );
       // was mouse just clicked?
       const mouseJustClicked = sk.mouseIsPressed && !STATE.input.mouseWasPressed;
       if (mousedOver || sk.mouseIsPressed) // stay dragging if lagging behind mouse
       {
-        dragLoc = [ 
-          sk.mouseX, 
+        dragLoc = [
+          sk.mouseX,
           sk.mouseY
         ];
       }
@@ -774,20 +774,20 @@ const COLLECTING_RAIN = (sk) =>
         for (let j = 0; j < sk.touches.length; j++) {
           // is shape touched?
           if (pointInAABB(
-            sk.touches[j].x - sk.width * 0.5, 
-            sk.touches[j].y - sk.height * 0.5, 
-            dims, 
-            realPos, 
+            sk.touches[j].x - sk.width * 0.5,
+            sk.touches[j].y - sk.height * 0.5,
+            dims,
+            realPos,
             realScale
           )) {
             touched = true;
 
             // location to drag to
-            dragLoc = [ 
-              sk.touches[j].x, 
+            dragLoc = [
+              sk.touches[j].x,
               sk.touches[j].y
             ];
-            
+
             // was that touch just started?
             if (
               STATE.input.previousTouches.find(t => t.id === sk.touches[j].id) === undefined
@@ -822,8 +822,8 @@ const COLLECTING_RAIN = (sk) =>
 
   function updateFallingShape(
     type = RAINDROP,
-    shapes = newMorphableShapeArrays(), 
-    i = 0, 
+    shapes = newMorphableShapeArrays(),
+    i = 0,
     bucket = { ...Bucket },
     dims = AABB_DIMS_RAINDROP,
     reusablePos = sk.createVector(0.0, 0.0),
@@ -837,8 +837,8 @@ const COLLECTING_RAIN = (sk) =>
     getRealPositionInPlace(reusablePos, pos, realSizeScalar);
 
     const dragLoc = updateFallingShapeDrag(
-      i, 
-      dims, 
+      i,
+      dims,
       shapes,
       reusablePos,
       shapes.scales[i] * realSizeScalar
@@ -848,10 +848,10 @@ const COLLECTING_RAIN = (sk) =>
     {
       // move morph target according to velocity
       addVector2DInPlace(
-        pos, 
+        pos,
         mulVector2D(
-          sk, 
-          shapes.velocities[i], 
+          sk,
+          shapes.velocities[i],
           deltaTime
         )
       );
@@ -888,7 +888,7 @@ const COLLECTING_RAIN = (sk) =>
 
     // just dropped?
     if (
-      wasDragging && 
+      wasDragging &&
       !shapes.beingDragged[i] &&
       bucket.active
     ) {
@@ -897,15 +897,15 @@ const COLLECTING_RAIN = (sk) =>
 
       // trying to measure here _without_ converting to real positions or scales
       if (pointInAABB(
-        pos.x, pos.y, 
-        AABB_DIMS_BUCKET, 
-        bucket.position, 
+        pos.x, pos.y,
+        AABB_DIMS_BUCKET,
+        bucket.position,
         bucket.scale
       )) {
         // console.log("Falling shape dropped in bucket at: ", pos.x, pos.y);
         // grow bucket
         growShrinkBucket(
-          bucket, 
+          bucket,
           BUCKET_GROWTH_RATE
         );
 
@@ -1033,7 +1033,7 @@ const COLLECTING_RAIN = (sk) =>
             STATE.shapes.bucketHeart.active = true;
             STATE.shapes.bucketHeart.morphTo.scale = 0.0;
             growShrinkBucket(STATE.shapes.bucketHeart, BASE_BUCKET_SCALE);
-            
+
           }
           break;
 
@@ -1076,9 +1076,9 @@ const COLLECTING_RAIN = (sk) =>
     // adjust the rate of rainfull for different shapes
 
     // update falling shape spawn positions, times, and
-    // fall speed based on number of 
+    // fall speed based on number of
     // active buckets
-    const totalBucketsActive = 
+    const totalBucketsActive =
       STATE.shapes.bucketRain.active +
       STATE.shapes.bucketDiamond.active +
       STATE.shapes.bucketStar.active +
@@ -1087,8 +1087,8 @@ const COLLECTING_RAIN = (sk) =>
     STATE.game.shapeSpawnPointCount = 1 + totalBucketsActive;
 
     const avgScale = (
-      STATE.shapes.bucketRain.scale + 
-      STATE.shapes.bucketDiamond.scale + 
+      STATE.shapes.bucketRain.scale +
+      STATE.shapes.bucketDiamond.scale +
       STATE.shapes.bucketStar.scale +
       STATE.shapes.bucketHeart.scale
     ) / (MAX_BUCKET_SCALE * 4. * realSizeScalar);
@@ -1183,7 +1183,7 @@ const COLLECTING_RAIN = (sk) =>
   }
 
   function updateShapeMorph(
-    deltaTime = 0.0, 
+    deltaTime = 0.0,
     shape = { ...ShapeMorphable },
     alpha = 0.0
   )
@@ -1198,11 +1198,11 @@ const COLLECTING_RAIN = (sk) =>
   // stuff going wrong with copying here maybe
   function updateShapeMorphs(deltaTime = 0.0)
   {
-    let fallingShapeArrays = [ 
-      STATE.shapes.raindrops, 
-      STATE.shapes.diamonds, 
-      STATE.shapes.stars, 
-      STATE.shapes.hearts 
+    let fallingShapeArrays = [
+      STATE.shapes.raindrops,
+      STATE.shapes.diamonds,
+      STATE.shapes.stars,
+      STATE.shapes.hearts
     ];
 
     // frame rate independent alpha using exponential
@@ -1215,20 +1215,20 @@ const COLLECTING_RAIN = (sk) =>
       for (let j = 0; j < fallingShapes.positions.length; j++)
       {
         fallingShapes.positions[j].x = sk.lerp(
-          fallingShapes.positions[j].x, 
+          fallingShapes.positions[j].x,
           fallingShapes.morphTos.positions[j].x,
         alpha);
         fallingShapes.positions[j].y = sk.lerp(
-          fallingShapes.positions[j].y, 
-          fallingShapes.morphTos.positions[j].y, 
+          fallingShapes.positions[j].y,
+          fallingShapes.morphTos.positions[j].y,
         alpha);
         fallingShapes.scales[j] = sk.lerp(
-          fallingShapes.scales[j], 
-          fallingShapes.morphTos.scales[j], 
+          fallingShapes.scales[j],
+          fallingShapes.morphTos.scales[j],
         alpha);
         fallingShapes.rotations[j] = sk.lerp(
-          fallingShapes.rotations[j], 
-          fallingShapes.morphTos.rotations[j], 
+          fallingShapes.rotations[j],
+          fallingShapes.morphTos.rotations[j],
         alpha);
       }
     }
@@ -1238,11 +1238,11 @@ const COLLECTING_RAIN = (sk) =>
       updateShapeMorph(deltaTime, STATE.shapes.goals[i], alpha);
     }
 
-    const buckets = [ 
-      STATE.shapes.bucketRain, 
-      STATE.shapes.bucketDiamond, 
-      STATE.shapes.bucketStar, 
-      STATE.shapes.bucketHeart 
+    const buckets = [
+      STATE.shapes.bucketRain,
+      STATE.shapes.bucketDiamond,
+      STATE.shapes.bucketStar,
+      STATE.shapes.bucketHeart
     ];
 
     for (let i = 0; i < buckets.length; i++)
@@ -1253,9 +1253,9 @@ const COLLECTING_RAIN = (sk) =>
 
   //// drawing methods ////
   function drawShape(
-    base_verts = STATE.setup.baseVertsRaindrop, 
-    center = sk.createVector(0,0), 
-    scale = 1., 
+    base_verts = STATE.setup.baseVertsRaindrop,
+    center = sk.createVector(0,0),
+    scale = 1.,
     rotation = 0,
     seed = 0.0,
     color = [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1269,12 +1269,12 @@ const COLLECTING_RAIN = (sk) =>
     // set shader uniforms
     STATE.shaders.baseShape.setUniform('seed', seed);
     STATE.shaders.baseShape.setUniform(
-      'objectPosition', 
+      'objectPosition',
       [ center.x, center.y ]
     );
     STATE.shaders.baseShape.setUniform('rotation', rotation);
     STATE.shaders.baseShape.setUniform(
-      'baseColor', 
+      'baseColor',
       color
     );
     STATE.shaders.baseShape.setUniform('dragVelocity', dragVelocity);
@@ -1288,7 +1288,7 @@ const COLLECTING_RAIN = (sk) =>
       const v = addVector2DInPlace(
         rotateVector2DInPlace(
           sk,
-          mulVector2D(sk, base_verts[i], scale), 
+          mulVector2D(sk, base_verts[i], scale),
           rotation,
           z
         ),
@@ -1310,7 +1310,7 @@ const COLLECTING_RAIN = (sk) =>
     const realSizeScalar = getRealSizeScalar();
 
     // rain bucket
-    // if (STATE.shapes.bucketRain.active === true) 
+    // if (STATE.shapes.bucketRain.active === true)
     {
       getRealPositionInPlace(pos, STATE.shapes.bucketRain.position, realSizeScalar);
 
@@ -1335,7 +1335,7 @@ const COLLECTING_RAIN = (sk) =>
       );
     }
     // diamond bucket
-    // if (STATE.shapes.bucketDiamond.active === true) 
+    // if (STATE.shapes.bucketDiamond.active === true)
     {
       getRealPositionInPlace(pos, STATE.shapes.bucketDiamond.position, realSizeScalar);
 
@@ -1360,7 +1360,7 @@ const COLLECTING_RAIN = (sk) =>
       );
     }
     // star bucket
-    // if (STATE.shapes.bucketStar.active === true) 
+    // if (STATE.shapes.bucketStar.active === true)
     {
       getRealPositionInPlace(pos, STATE.shapes.bucketStar.position, realSizeScalar);
 
@@ -1385,7 +1385,7 @@ const COLLECTING_RAIN = (sk) =>
       );
     }
     // heart bucket
-    // if (STATE.shapes.bucketHeart.active === true) 
+    // if (STATE.shapes.bucketHeart.active === true)
     {
       getRealPositionInPlace(pos, STATE.shapes.bucketHeart.position, realSizeScalar);
 
@@ -1437,9 +1437,9 @@ const COLLECTING_RAIN = (sk) =>
 
       // draw
       drawShape(
-        STATE.setup.baseVertsRaindrop, 
-        pos, 
-        STATE.shapes.raindrops.scales[i] * realSizeScalar, 
+        STATE.setup.baseVertsRaindrop,
+        pos,
+        STATE.shapes.raindrops.scales[i] * realSizeScalar,
         STATE.shapes.raindrops.rotations[i],
         STATE.shapes.raindrops.seed[i],
         RAINDROP_COLOR,
@@ -1465,9 +1465,9 @@ const COLLECTING_RAIN = (sk) =>
 
       // draw
       drawShape(
-        STATE.setup.baseVertsDiamond, 
-        pos, 
-        STATE.shapes.diamonds.scales[i] * realSizeScalar, 
+        STATE.setup.baseVertsDiamond,
+        pos,
+        STATE.shapes.diamonds.scales[i] * realSizeScalar,
         STATE.shapes.diamonds.rotations[i],
         STATE.shapes.diamonds.seed[i],
         DIAMOND_COLOR,
@@ -1493,9 +1493,9 @@ const COLLECTING_RAIN = (sk) =>
 
       // draw
       drawShape(
-        STATE.setup.baseVertsStar, 
-        pos, 
-        STATE.shapes.stars.scales[i] * realSizeScalar, 
+        STATE.setup.baseVertsStar,
+        pos,
+        STATE.shapes.stars.scales[i] * realSizeScalar,
         STATE.shapes.stars.rotations[i],
         STATE.shapes.stars.seed[i],
         STAR_COLOR,
@@ -1522,9 +1522,9 @@ const COLLECTING_RAIN = (sk) =>
 
       // draw
       drawShape(
-        STATE.setup.baseVertsHeart, 
-        pos, 
-        STATE.shapes.hearts.scales[i] * realSizeScalar, 
+        STATE.setup.baseVertsHeart,
+        pos,
+        STATE.shapes.hearts.scales[i] * realSizeScalar,
         STATE.shapes.hearts.rotations[i],
         STATE.shapes.hearts.seed[i],
         HEART_COLOR,
@@ -1588,7 +1588,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale1 * spacing1, 
+            pos.x - scale1 * spacing1,
             pos.y - scale1 * spacing1
           ),
           scale1,
@@ -1600,7 +1600,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale1 * spacing1, 
+            pos.x + scale1 * spacing1,
             pos.y - scale1 * spacing1
           ),
           scale1,
@@ -1615,7 +1615,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale1 * spacing1, 
+            pos.x - scale1 * spacing1,
             pos.y - scale1 * spacing1
           ),
           scale1,
@@ -1627,7 +1627,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale1 * spacing1, 
+            pos.x + scale1 * spacing1,
             pos.y - scale1 * spacing1
           ),
           scale1,
@@ -1639,7 +1639,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale1 * spacing1, 
+            pos.x - scale1 * spacing1,
             pos.y + scale1 * spacing1
           ),
           scale1,
@@ -1651,7 +1651,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale1 * spacing1, 
+            pos.x + scale1 * spacing1,
             pos.y + scale1 * spacing1
           ),
           scale1,
@@ -1667,7 +1667,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale1 * spacing1, 
+            pos.x - scale1 * spacing1,
             pos.y - scale1 * spacing1
           ),
           scale1,
@@ -1679,7 +1679,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale1 * spacing1, 
+            pos.x + scale1 * spacing1,
             pos.y + scale1 * spacing1
           ),
           scale1,
@@ -1695,7 +1695,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsStar,
           sk.createVector(
-            pos.x, 
+            pos.x,
             pos.y
           ),
           scale3,
@@ -1711,7 +1711,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale2 * spacing2, 
+            pos.x - scale2 * spacing2,
             pos.y - scale2 * spacing2
           ),
           scale2,
@@ -1723,7 +1723,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale2 * spacing2, 
+            pos.x + scale2 * spacing2,
             pos.y - scale2 * spacing2
           ),
           scale2,
@@ -1735,7 +1735,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x - scale2 * spacing2, 
+            pos.x - scale2 * spacing2,
             pos.y + scale2 * spacing2
           ),
           scale2,
@@ -1747,7 +1747,7 @@ const COLLECTING_RAIN = (sk) =>
         drawShape(
           STATE.setup.baseVertsBucket,
           sk.createVector(
-            pos.x + scale2 * spacing2, 
+            pos.x + scale2 * spacing2,
             pos.y + scale2 * spacing2
           ),
           scale2,
@@ -1775,10 +1775,10 @@ const COLLECTING_RAIN = (sk) =>
   function pause()
   {
     console.log("pausing")
-    /*
+
     sk.shader(STATE.shaders.postProcess2);
     STATE.shaders.postProcess2.setUniform('bigBlur', 1);
-    */
+
     // draw one frame with the updated uniform
     draw();
 
@@ -1788,10 +1788,9 @@ const COLLECTING_RAIN = (sk) =>
   function unpause()
   {
     console.log("unpausing")
-    /*
+
     sk.shader(STATE.shaders.postProcess2);
     STATE.shaders.postProcess2.setUniform('bigBlur', 0);
-    */
 
     STATE.paused = false;
   }
@@ -1835,7 +1834,7 @@ const COLLECTING_RAIN = (sk) =>
     STATE.shaders.baseShape.setUniform('windowScale', getRealSizeScalar());
 
     STATE.shaders.postProcess1 = sk.createShader(GENERIC_V_SHADER, POST1_F_SHADER);
-    
+
     STATE.shaders.postProcess2 = sk.createShader(GENERIC_V_SHADER, POST2_F_SHADER);
 
     setupFireworks(sk);
@@ -1845,7 +1844,7 @@ const COLLECTING_RAIN = (sk) =>
   const SHAPE_V_SHADER = `
     precision highp float;
 
-    // Attributes are special variable types that are only 
+    // Attributes are special variable types that are only
     // used in the vertex shader and are typically provided by p5.js
     attribute vec3 aPosition;
     attribute vec2 aTexCoord;
@@ -1883,10 +1882,10 @@ const COLLECTING_RAIN = (sk) =>
       vec2 normRelPos = normalize(aPosition.xy - objectPosition);
       vTexCoord = rotateVec2(normRelPos, -rotation);
 
-      float offsetSize, offsetSpeed; 
+      float offsetSize, offsetSpeed;
       vec3 dragOffset = vec3(0.0);
       float dragMag = length(dragVelocity);
-      if (dragMag > 0.0) 
+      if (dragMag > 0.0)
       {
         offsetSize = 1.333;
         offsetSpeed = 0.75;
@@ -1897,7 +1896,7 @@ const COLLECTING_RAIN = (sk) =>
         );
         dragOffset = vec3(dragVelocity, 0.0) * d * 3.0;
       }
-      else 
+      else
       {
         offsetSize = 0.667;
         offsetSpeed = 0.25;
@@ -1918,7 +1917,7 @@ const COLLECTING_RAIN = (sk) =>
       // Apply the camera transform
       vec4 viewModelPosition = uModelViewMatrix * vec4(aPosition + offset, 1.0);
       // Tell WebGL where the vertex goes
-      gl_Position = uProjectionMatrix * viewModelPosition;  
+      gl_Position = uProjectionMatrix * viewModelPosition;
 
       // Pass along data to the fragment shader
       vVertexColor = vec4(vTexCoord, 1.0, 1.0);
@@ -2084,7 +2083,7 @@ const COLLECTING_RAIN = (sk) =>
     uniform int bigBlur;
 
     // x,y coordinates, given from the vertex shader
-    varying vec2 vTexCoord; 
+    varying vec2 vTexCoord;
 
     vec4 blurColor(vec2 uv, vec2 pixelUV)
     {
@@ -2104,7 +2103,7 @@ const COLLECTING_RAIN = (sk) =>
           weight = exp(-float(i*i + j*j) / (2.0 * sigma * sigma));
 
           bc += texture2D(
-            fbo2, 
+            fbo2,
             clamp(uv + vec2(float(i), float(j)) * pixelUV, 0.0, 1.0)
           ) * weight;
 
@@ -2119,11 +2118,11 @@ const COLLECTING_RAIN = (sk) =>
         for (int i = blurSize * -1; i <= blurSize; i++)
         for (int j = blurSize * -1; j <= blurSize; j++)
         {
-          // gaussian 
+          // gaussian
           weight = exp(-float(i*i + j*j) / (2.0 * sigma * sigma));
 
           bc += texture2D(
-            fbo2, 
+            fbo2,
             clamp(uv + vec2(float(i), float(j)) * pixelUV, 0.0, 1.0)
           ) * weight;
 
@@ -2146,7 +2145,7 @@ const COLLECTING_RAIN = (sk) =>
 
   //// core p5 methods ////
   // also called on initial window setup
-  function windowResized() 
+  function windowResized()
   {
     const newWidth = Math.min(sk.windowWidth * 0.9, sk.windowHeight * 0.9);
     sk.resizeCanvas(newWidth, newWidth, true);
@@ -2163,13 +2162,13 @@ const COLLECTING_RAIN = (sk) =>
     unpause();
   }
 
-  function setup() 
+  function setup()
   {
     // create initial canvas
     const minDim = Math.min(sk.windowWidth, sk.windowHeight);
     renderer = sk.createCanvas(
-      minDim, 
-      minDim, 
+      minDim,
+      minDim,
       sk.WEBGL
     );
     // reparent to our customizable div "toy_canvas" and remove the "main" element p5 generates
@@ -2189,7 +2188,7 @@ const COLLECTING_RAIN = (sk) =>
     window.ontouchstart = handleTouch;
   }
 
-  function draw() 
+  function draw()
   {
     { // HANDLE PAUSE
       if (renderer.GL === undefined)
@@ -2197,18 +2196,18 @@ const COLLECTING_RAIN = (sk) =>
         // console.log("No valid WebGL found!")
         return;
       }
-      if (STATE.paused) 
+      if (STATE.paused)
       {
         // console.log("paused")
         return;
       }
     }
 
-    
+
     { // UPDATING
       // state updated at the start of each frame
       const delta = sk.deltaTime / 1000.0; // convert ms to sec
-      STATE.timeElapsed += delta; 
+      STATE.timeElapsed += delta;
       STATE.shaders.baseShape.setUniform('time', STATE.timeElapsed);
       STATE.shaders.postProcess1.setUniform('time', STATE.timeElapsed);
 
@@ -2222,8 +2221,8 @@ const COLLECTING_RAIN = (sk) =>
       updateFireworks(sk, delta, STATE.timeElapsed);
     }
 
-    
-    { // DRAWING 
+
+    { // DRAWING
       // draw to buffer 1
       STATE.shaders.fbo1.begin();
         sk.clear(); // the buffer
@@ -2261,7 +2260,7 @@ const COLLECTING_RAIN = (sk) =>
       sk.rect(-sk.width * 0.5, -sk.height * 0.5, sk.width, sk.height);
     }
 
-    
+
     { // END OF FRAME CLEAN UP
       // state updated at the end of each frame
       STATE.input.mouseWasPressed = sk.mouseIsPressed;

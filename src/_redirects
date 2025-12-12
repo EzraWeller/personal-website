@@ -1,9 +1,8 @@
 # Redirects from what the browser requests to what we serve
 /pages/index.html             /
-/pages/cv.html                /cv
-/pages/music.html             /music
-/pages/games.html             /games
-/pages/toys.html              /toys
-/pages/writing.html           /writing
-/pages/product.html           /product
-/pages/connect.html           /connect
+/pages/about.html             /about
+/pages/gallery.html           /gallery
+/pages/programming.html       /programming
+/pages/sound.html             /sound
+/pages/misc.html              /misc
+/pages/contact.html           /contact

@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
 }
-  
+
 
 #p5_canvas {
   margin: 0;
@@ -19,19 +19,9 @@ body {
 }
   */
 
-@media only screen and (max-width: 600px)
-{
-  .toy_container {
-    margin: 0 -3em 0 -3em; /* undo the default margins on body */
-  }
-
-  #toy_canvas > canvas {
-    margin: auto;
-  }
-}
-
 #toy_canvas > canvas {
-  padding: 0;
+  padding: 16px;
+  margin-bottom: 64px;
   display: block;
 }
 
@@ -43,10 +33,22 @@ body {
 
 .toy_button {
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   border: 2px solid transparent;
 }
 
 .selected {
   border: 2px solid black;
+}
+
+@media only screen and (max-width: 600px)
+{
+  .toy_container {
+    margin: 0 -3em 0 -3em; /* undo the default margins on body */
+  }
+
+  #toy_canvas > canvas {
+    padding: 0;
+    margin: auto;
+  }
 }

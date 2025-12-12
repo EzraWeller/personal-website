@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<!-- &build components/html-header -->
+
+<!-- p5_1 header stuff -->
+<header>
+  <title>M0zrat's Webtoys</title>
+    <link rel="stylesheet" type="text/css" href="toys/toy_style.css">
+
+    <script src="vendor/p5.min.js"></script>
+
+    <script src="lib/state.js"></script>
+    <script src="lib/vectors.js"></script>
+    <script src="lib/shaders.js"></script>
+    <script src="lib/fireworks.js"></script>
+    <script src="lib/util.js"></script>
+
+    <script src="toys/collecting_rain_instance.js"></script>
+    <script src="toys/spilling_paint_instance.js"></script>
+    <script src="toys/food_chain_instance.js"></script>
+</header>
+
+<body>
+  <!-- &build components/header -->
+  <section class="post-feed">
+
+    <h3>Web Toys</h3>
+    <div class="content row" id="toy_buttons">
+        <!-- stuff here to swap between toys -->
+        <div id="food_chain_button" class="toy_button">food chain</div>
+        <div id="spilling_paint_button" class="toy_button">spilling paint</div>
+        <div id="collecting_rain_button" class="toy_button">collecting rain</div>
+    </div>
+
+    <!-- p5 canvas will be made a child of this div so we have full css control of its container -->
+    <div class="toy_container" id="toy_canvas"></div>
+
+    <div class="post">
+        <p>
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2759663260/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://m0zrat.bandcamp.com/album/mid-life">mid-life by m0zrat</a></iframe>
+        </p>
+    </div>
+
+    <div class="post">
+        <p>
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1231282995/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://m0zrat.bandcamp.com/album/november-12345">November 12345 by m0zrat</a></iframe>
+        </p>
+    </div>
+
+    <div class="post">
+        <p>
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1273947335/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://m0zrat.bandcamp.com/album/the-shark">the shark by m0zrat</a></iframe>
+        </p>
+    </div>
+
+    <div class="post">
+        <p>
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3191453682/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://m0zrat.bandcamp.com/album/unmastered-ripoffs-2010s">unmastered ripoffs 2010s by m0zrat</a></iframe>
+        </p>
+    </div>
+
+    <div class="post">
+        <p>
+            In addition to digital to music, I have made
+            <a target="_blank" href="https://drive.google.com/file/d/0Bz5oBmrT-i3oZzBHblY4S0RSUHM/view?usp=sharing&resourcekey=0-g5w87AVNnYsnggcaPPOJ8Q">lots</a>
+            <a target="_blank" href="https://drive.google.com/drive/folders/0Bz5oBmrT-i3oU0h0SVgzVXJNRzA?resourcekey=0-QghTz-LPebFsCp9qCdh_zw&usp=sharing">of</a>
+            <a target="_blank" href="https://drive.google.com/drive/folders/0Bz5oBmrT-i3oSTYwM2s2RTBTN1k?resourcekey=0-LxNrE8mo7Ttjt_cXLMiLZQ&usp=sharing">traditional</a>
+            <a target="_blank" href="https://drive.google.com/file/d/11ZtsL4Y3HpsOLqPwt_WaWXGb6YZAu-7N/view">scores</a>.
+        </p>
+    </div>
+
+    <script src="lib/toy_switcher.js"></script>
+    <script>
+      const all_buttons = document.getElementsByClassName("toy_button");
+
+      const spilling_paint_button = document.getElementById("spilling_paint_button");
+      const handle_spilling_paint = (e) =>
+      {
+          // e.preventDefault();
+          switchToy(TT_SPILLING_PAINT, spilling_paint_button, all_buttons);
+          console.log("handled spilling paint");
+      };
+      const collecting_rain_button = document.getElementById("collecting_rain_button");
+      const handle_collecting_rain = (e) =>
+      {
+          // e.preventDefault();
+          switchToy(TT_COLLECTING_RAIN, collecting_rain_button, all_buttons);
+          console.log("handled collecting rain");
+      };
+      const food_chain_button = document.getElementById("food_chain_button");
+      const handle_food_chain = (e) =>
+      {
+          // e.preventDefault();
+          switchToy(TT_FOOD_CHAIN, food_chain_button, all_buttons);
+          console.log("handled food chain");
+      };
+
+      spilling_paint_button.onclick = handle_spilling_paint;
+      spilling_paint_button.ontouchstart = handle_spilling_paint;
+
+      collecting_rain_button.onclick = handle_collecting_rain;
+      collecting_rain_button.ontouchstart = handle_collecting_rain;
+
+      food_chain_button.onclick = handle_food_chain;
+      food_chain_button.ontouchstart = handle_food_chain;
+
+      handle_food_chain();
+    </script>
+
+  </section>
+  <!-- &build components/footer -->
+</body>
+
+</html>

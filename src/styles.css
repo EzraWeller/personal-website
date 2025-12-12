@@ -10,7 +10,7 @@
 body {
   margin: 3em;
   font-family: 'Times New Roman';
-  font-size: 15px;
+  font-size: 20px;
   display: flex;
   flex-direction: column;
   min-height: 90vh;
@@ -34,11 +34,11 @@ body {
 }
 
 #two.header-span {
-  left: 3.3em;
+  left: 3.05em;
 }
 
 #three.header-span {
-  left: 5em;
+  left: 4.6em;
 }
 
 #footer {
@@ -51,13 +51,17 @@ body {
 
 h1 {
   font-family: CirrusCumulus;
-  font-size: 28px;
+  font-size: 40px;
   margin-bottom: 2em;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 22px;
   width: max-content;
+}
+
+.small {
+  font-size: 16px;
 }
 
 .post-feed {
@@ -66,10 +70,6 @@ h3 {
 
 .post {
   margin: 0.5em 0 3.5em 0;
-}
-
-.small {
-  font-size: 12px;
 }
 
 .content {
@@ -87,6 +87,10 @@ p {
   flex-wrap: wrap;
 }
 
+.row.padded>* {
+  margin-right: 1em;
+}
+
 .row.centered {
   justify-content: center;
 }
@@ -102,4 +106,25 @@ p>a {
 
 a:hover {
   color: blue;
+}
+
+@media screen and (max-width: 480px) {
+    body {
+      font-size: 15px;
+    }
+
+    h1 {
+      font-family: CirrusCumulus;
+      font-size: 28px;
+      margin-bottom: 2em;
+    }
+
+    h3 {
+      font-size: 18px;
+      width: max-content;
+    }
+
+    .small {
+      font-size: 12px;
+    }
 }
